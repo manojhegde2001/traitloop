@@ -16,7 +16,7 @@ const svenska = {
     title: 'Big Five personlighetstest',
     call_to_action: 'Starta testet',
     no_registration: '* Ingen registrering krävs',
-    tests_taken: 'Över <green>{n}</green> personer har tagit testet',
+    tests_taken: 'Över <highlight>{n}</highlight> personer har tagit testet',
     compare: {
       title: 'Jämför dig med andra',
       text1: 'Jämför dig själv med din partner, kollegor, vänner eller familj.',
@@ -44,7 +44,7 @@ const svenska = {
       }
     },
     description: {
-      top: 'Förstå dig själv och andra bättre med ett <violet>gratis</violet> personlighetstest med öppen källkod.',
+      top: 'Förstå dig själv och andra bättre med ett <highlight>gratis</highlight> personlighetstest med öppen källkod.',
       subtop: '',
       subtop2:
         ' är en vetenskaplig och trovärdig psykologisk modell för att mäta personlighet.',
@@ -217,3 +217,5 @@ innholdet er fra <i>Johnson's (2014) 120-item IPIP NEO-PI-R</i>.`,
 };
 
 export default svenska;
+
+

@@ -1,6 +1,6 @@
 {
-  "name": "bigfive-web-next",
-  "version": "0.0.1",
+  "name": "traitloop-web",
+  "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

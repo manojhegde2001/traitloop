@@ -17,7 +17,7 @@ const portuguese = {
     title: 'Teste de Personalidade Big Five',
     call_to_action: 'Faça um teste gratuito agora',
     no_registration: '* Não precisa se registrar',
-    tests_taken: 'Mais de <green>{n}</green> pessoas fizeram o teste',
+    tests_taken: 'Mais de <highlight>{n}</highlight> pessoas fizeram o teste',
     compare: {
       title: 'Compare-se com outros',
       text1:
@@ -46,7 +46,7 @@ const portuguese = {
       }
     },
     description: {
-      top: 'Aprenda a se conhecer melhor com um teste de personalidade <violet>gratuito</violet> e de código aberto.',
+      top: 'Aprenda a se conhecer melhor com um teste de personalidade <highlight>gratuito</highlight> e de código aberto.',
       subtop: 'O',
       subtop2:
         ' é o modelo psicológico mais validado cientificamente e confiável para medir a personalidade.',
@@ -221,3 +221,5 @@ inventário é de <i>Johnson's (2014) 120-item IPIP NEO-PI-R</i>.`,
 };
 
 export default portuguese;
+
+

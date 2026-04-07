@@ -16,7 +16,7 @@ const indonesian = {
     title: 'Tes Kepribadian Lima Besar',
     call_to_action: 'Ikuti tes gratis sekarang',
     no_registration: '* Tidak perlu registrasi',
-    tests_taken: 'Lebih dari <green>{n}</green> orang telah mengikuti tes',
+    tests_taken: 'Lebih dari <highlight>{n}</highlight> orang telah mengikuti tes',
     compare: {
       title: 'Bandingkan diri Anda dengan orang lain',
       text1:
@@ -45,7 +45,7 @@ const indonesian = {
       }
     },
     description: {
-      top: 'Belajar mengenal diri Anda lebih baik dengan tes kepribadian sumber terbuka <violet>gratis</violet>.',
+      top: 'Belajar mengenal diri Anda lebih baik dengan tes kepribadian sumber terbuka <highlight>gratis</highlight>.',
       subtop: 'Itu',
       subtop2:
         ' adalah model psikologis yang paling tervalidasi secara ilmiah dan dapat diandalkan untuk mengukur kepribadian.',
@@ -222,3 +222,5 @@ const indonesian = {
 };
 
 export default indonesian;
+
+

@@ -16,7 +16,7 @@ const japanese = {
     title: 'ビッグファイブパーソナリティテスト',
     call_to_action: '今すぐ無料テストを受ける',
     no_registration: '*登録は必要ありません',
-    tests_taken: '<green>{n}</green>人以上がテストを受けました',
+    tests_taken: '<highlight>{n}</highlight>人以上がテストを受けました',
     compare: {
       title: '自分を他の人と比較する',
       text1:
@@ -217,3 +217,5 @@ const japanese = {
 };
 
 export default japanese;
+
+

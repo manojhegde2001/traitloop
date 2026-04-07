@@ -16,7 +16,7 @@ const polish = {
     title: 'Test Osobowości Wielkiej Piątki',
     call_to_action: 'Rozpocznij darmowy test',
     no_registration: '* Rejestracja nie jest wymagana',
-    tests_taken: 'Ponad <green>{n}</green> ludzi wzięło udział w teście',
+    tests_taken: 'Ponad <highlight>{n}</highlight> ludzi wzięło udział w teście',
     compare: {
       title: 'Porównaj się z innymi',
       text1:
@@ -46,7 +46,7 @@ const polish = {
       }
     },
     description: {
-      top: "Poznaj siebie dzięki <violet>darmowemu</violet>, open-source'owemu testowi osobowości.",
+      top: "Poznaj siebie dzięki <highlight>darmowemu</highlight>, open-source'owemu testowi osobowości.",
       subtop: '',
       subtop2:
         'jest najbardziej wiarygodnym i naukowo potwierdzonym modelem psychologicznym opisującym osobowość.',
@@ -223,3 +223,5 @@ inventory is from <i>Johnson's (2014) 120-item IPIP NEO-PI-R</i>.`,
 };
 
 export default polish;
+
+

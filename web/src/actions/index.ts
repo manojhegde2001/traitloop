@@ -1,7 +1,7 @@
 'use server';
 
 import { connectToDatabase } from '@/db';
-import { ObjectId } from 'mongodb';
+// import { ObjectId } from 'mongodb';
 import { B5Error, DbResult, Feedback } from '@/types';
 import calculateScore from '@bigfive-org/score';
 import generateResult, {
@@ -12,6 +12,9 @@ import generateResult, {
 
 const collectionName = process.env.DB_COLLECTION || 'results';
 const resultLanguages = getInfo().languages;
+
+// In-memory mock storage replaced by file-based persistence in @/db/index.ts
+// const mockStorage: Record<string, any> = {};
 
 export type Report = {
   id: string;
@@ -27,10 +30,11 @@ export async function getTestResult(
 ): Promise<Report | undefined> {
   'use server';
   try {
-    const query = { _id: new ObjectId(id) };
+    // const query = { _id: new ObjectId(id) };
     const db = await connectToDatabase();
     const collection = db.collection(collectionName);
-    const report = await collection.findOne(query);
+    const report = await collection.findOne({ _id: id });
+
     if (!report) {
       console.error(`The test results with id ${id} are not found!`);
       throw new B5Error({
@@ -44,7 +48,7 @@ export async function getTestResult(
     const scores = calculateScore({ answers: report.answers });
     const results = generateResult({ lang: selectedLanguage, scores });
     return {
-      id: report._id.toString(),
+      id: id,
       timestamp: report.dateStamp,
       availableLanguages: resultLanguages,
       language: selectedLanguage,
@@ -64,7 +68,11 @@ export async function saveTest(testResult: DbResult) {
     const db = await connectToDatabase();
     const collection = db.collection(collectionName);
     const result = await collection.insertOne(testResult);
-    return { id: result.insertedId.toString() };
+
+    const id = result.insertedId.toString();
+    // mockStorage[id] = testResult; // Stores via connectToDatabase -> storage.ts
+
+    return { id: id };
   } catch (error) {
     console.error(error);
     throw new B5Error({

@@ -16,7 +16,7 @@ const deutsh = {
     title: 'Big Five Persönlichkeitstest',
     call_to_action: 'Nehmen Sie jetzt teil',
     no_registration: '* Keine Registrierung erforderlich',
-    tests_taken: 'Über <green>{n}</green> Menschen haben bisher teilgenommen',
+    tests_taken: 'Über <highlight>{n}</highlight> Menschen haben bisher teilgenommen',
     compare: {
       title: 'Vergleichen Sie sich mit anderen',
       text1:
@@ -46,7 +46,7 @@ const deutsh = {
       }
     },
     description: {
-      top: 'Lernen Sie sich besser kennen mithilfe dieses <violet>kostenlosen</violet>, open-source Persönlichkeitstests.',
+      top: 'Lernen Sie sich besser kennen mithilfe dieses <highlight>kostenlosen</highlight>, open-source Persönlichkeitstests.',
       subtop: 'Der',
       subtop2:
         ' ist das am meisten wissenschaftlich validierte und zuverlässigste psychologische Modell zur Persönlichkeitsmessung.',
@@ -225,3 +225,5 @@ inventory is from <i>Johnson's (2014) 120-item IPIP NEO-PI-R</i>.`,
 };
 
 export default deutsh;
+
+

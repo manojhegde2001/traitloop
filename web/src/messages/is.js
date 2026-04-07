@@ -16,7 +16,7 @@ const icelandic = {
     title: 'Stór fimm persónuleikapróf',
     call_to_action: 'Taktu ókeypis prófið núna',
     no_registration: '* Engin skráning nauðsynleg',
-    tests_taken: 'Yfir <green>{n}</green> manns hafa tekið prófið',
+    tests_taken: 'Yfir <highlight>{n}</highlight> manns hafa tekið prófið',
     compare: {
       title: 'Berðu þig saman við aðra',
       text1:
@@ -44,7 +44,7 @@ const icelandic = {
       }
     },
     description: {
-      top: 'Lærðu að þekkja sjálfan þig betur með <violet>ókeypis</violet> opnu persónuleikaprófi.',
+      top: 'Lærðu að þekkja sjálfan þig betur með <highlight>ókeypis</highlight> opnu persónuleikaprófi.',
       subtop: 'The',
       subtop2:
         ' er vísindalega staðfestasta og áreiðanlegasta sálfræðilíkanið til að mæla persónuleika.',
@@ -218,3 +218,5 @@ const icelandic = {
 };
 
 export default icelandic;
+
+

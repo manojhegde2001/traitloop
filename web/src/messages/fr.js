@@ -16,7 +16,7 @@ const french = {
     title: 'Test de personnalité Big Five',
     call_to_action: 'Faites le test gratuit maintenant',
     no_registration: '* Aucune inscription requise',
-    tests_taken: 'Plus de <green>{n}</green> personnes ont passé le test',
+    tests_taken: 'Plus de <highlight>{n}</highlight> personnes ont passé le test',
     compare: {
       title: 'Comparez-vous aux autres',
       text1:
@@ -45,7 +45,7 @@ const french = {
       }
     },
     description: {
-      top: 'Lgagnez à mieux vous connaître grâce à un test de personnalité <violet>gratuit</violet> et open source.',
+      top: 'Lgagnez à mieux vous connaître grâce à un test de personnalité <highlight>gratuit</highlight> et open source.',
       subtop: 'The',
       subtop2:
         ' is the most scientifically validated and reliable psychological model to measure personality.',
@@ -221,3 +221,5 @@ const french = {
 };
 
 export default french;
+
+

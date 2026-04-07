@@ -2,6 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+  }
+
+  .dark {
+    --glass-bg: rgba(15, 23, 42, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply backdrop-blur-md border;
+    background-color: var(--glass-bg);
+    border-color: var(--glass-border);
+  }
+
+  .glass-card {
+    @apply glass rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+  }
+}
+
+/* Smooth Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-default-300 rounded-full hover:bg-default-400 transition-colors;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-default-100 rounded-full hover:bg-default-200 transition-colors;
+}
+
 h3 {
   @apply text-xl;
 }

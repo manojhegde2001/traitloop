@@ -16,7 +16,7 @@ const norsk = {
     title: 'Big Five personlighetstest',
     call_to_action: 'Start testen',
     no_registration: '* Ingen registrering påkrevd',
-    tests_taken: 'Over <green>{n}</green> personer har tatt testen',
+    tests_taken: 'Over <highlight>{n}</highlight> personer har tatt testen',
     compare: {
       title: 'Sammenlign deg med andre',
       text1:
@@ -45,7 +45,7 @@ const norsk = {
       }
     },
     description: {
-      top: 'Forstå deg selv og andre bedre med en <violet>gratis</violet>, open-source personlighetstest.',
+      top: 'Forstå deg selv og andre bedre med en <highlight>gratis</highlight>, open-source personlighetstest.',
       subtop: '',
       subtop2:
         ' er en vitenskapelig og troverdig psykologisk modell for å måle personlighet.',
@@ -219,3 +219,5 @@ innholdet er fra <i>Johnson's (2014) 120-item IPIP NEO-PI-R</i>.`,
 };
 
 export default norsk;
+
+

@@ -16,7 +16,7 @@ const thai = {
     title: 'แบบทดสอบบุคลิกภาพใหญ่ 5 อย่าง',
     call_to_action: 'ทําการทดสอบฟรีตอนนี้',
     no_registration: '* ไม่จำเป็นต้องลงทะเบียน',
-    tests_taken: 'มีผู้เข้าร่วมการทดสอบมากกว่า <green>{n}</green> คน',
+    tests_taken: 'มีผู้เข้าร่วมการทดสอบมากกว่า <highlight>{n}</highlight> คน',
     compare: {
       title: 'เปรียบเทียบตัวเองกับผู้อื่น',
       text1:
@@ -217,3 +217,5 @@ const thai = {
 };
 
 export default thai;
+
+

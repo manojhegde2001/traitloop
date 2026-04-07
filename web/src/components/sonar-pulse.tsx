@@ -33,7 +33,16 @@ export const SonarPulse: FC<SonarPulseProps> = ({
 
     return Array.from({ length }).map((_, i) => {
       const alphaFactor = alpha - i * factor;
-      let rgbaColor = parseToRgba(color);
+      let rgbaColor: [number, number, number, number] = [0, 0, 0, 1];
+      
+      try {
+        rgbaColor = parseToRgba(color);
+      } catch (e) {
+        // Fallback if color is a CSS variable or invalid
+        // We'll use a neutral gray or just keep it as is if possible
+        // But parseToRgba needs to return [r,g,b,a]
+        rgbaColor = [120, 120, 120, 1]; 
+      }
 
       rgbaColor[3] = alphaFactor;
 

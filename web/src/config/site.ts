@@ -2,9 +2,9 @@ import { getTranslations } from 'next-intl/server';
 
 export type SiteConfig = typeof siteConfig;
 
-export const basePath = 'https://bigfive-test.com';
+export const basePath = 'https://traitloop.com';
 
-export const supportEmail = 'bigfive-test@rubynor.com';
+export const supportEmail = 'support@traitloop.com';
 
 export type Language = {
   code: string;
@@ -54,10 +54,10 @@ export const languages: Language[] = [
 export const locales = languages.map((lang) => lang.code) as string[];
 
 export const siteConfig = {
-  name: 'Big Five Personality Test',
-  creator: '@maccyber',
+  name: 'Trait Loop - Personality Test',
+  creator: '@manojhegde',
   description:
-    'Learn to know yourself better with a free, open-source personality test.',
+    'Trait Loop helps you understand your personality using the scientifically validated Big Five assessment.',
   navItems: [
     {
       label: 'home',
@@ -133,10 +133,10 @@ export const siteConfig = {
     }
   ],
   links: {
-    github: 'https://github.com/rubynor/bigfive-web',
-    twitter: 'https://twitter.com/rubynor',
-    linkedIn: 'https://www.linkedin.com/company/rubynor-as/',
-    facebook: 'https://www.facebook.com/rubynorno'
+    github: '#',
+    twitter: '#',
+    linkedIn: '#',
+    facebook: '#'
   }
 };
 

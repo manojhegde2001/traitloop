@@ -3,6 +3,7 @@ import { getTestResult } from '@/actions';
 import { title } from '@/components/primitives';
 import { DomainComparePage } from './domain';
 import { BarChartCompare } from '@/components/bar-chart-generic';
+import { Card, CardBody } from '@nextui-org/react';
 
 interface ComparePageProps {
   params: {
@@ -50,18 +51,42 @@ export default async function ComparePage({
     });
 
   return (
-    <>
-      <h1 className={title()}>Overview</h1>
-      <BarChartCompare max={120} categories={categories} series={series} />
-      {reports[0].report.results.map((domain) => (
-        <DomainComparePage
-          key={domain.domain}
-          title={domain.title}
-          shortDescription={domain.shortDescription}
-          // @ts-ignore
-          domain={getNamedFacets(domain.domain)}
-        />
-      ))}
-    </>
+    <div className="max-w-6xl mx-auto px-4 py-12 animate-in fade-in duration-1000">
+      <div className="mb-12 text-center">
+        <h1 className="text-4xl md:text-6xl font-display font-black tracking-tight mb-4">
+          Comparison Overview
+        </h1>
+        <p className="text-default-500 text-lg max-w-2xl mx-auto">
+          Comparing {reports.length} profiles across the five core personality domains.
+        </p>
+      </div>
+
+      <Card className="glass-card mb-16 border-divider/30 shadow-2xl p-6 md:p-10">
+        <CardBody className="overflow-visible">
+          <div className="mb-8 flex items-center justify-between">
+            <h2 className="text-2xl font-bold font-display">Domain Summary</h2>
+          </div>
+          <BarChartCompare max={120} categories={categories} series={series} />
+        </CardBody>
+      </Card>
+
+      <div className="flex flex-col gap-12">
+        <div className="flex items-center gap-4 mb-2">
+          <div className="h-px flex-grow bg-divider/20" />
+          <h2 className="text-xl font-bold font-display text-default-400 uppercase tracking-[0.2em]">Detailed Analysis</h2>
+          <div className="h-px flex-grow bg-divider/20" />
+        </div>
+
+        {reports[0].report.results.map((domain, idx) => (
+          <DomainComparePage
+            key={domain.domain}
+            title={domain.title}
+            shortDescription={domain.shortDescription}
+            // @ts-ignore
+            domain={getNamedFacets(domain.domain)}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

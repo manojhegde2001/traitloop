@@ -7,8 +7,9 @@ import {
   NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-  NavbarMenuItem
-} from '@nextui-org/navbar';
+  NavbarMenuItem,
+  Button
+} from '@nextui-org/react';
 import LocaleSwitcher from '@/components/locale-switcher';
 import LocaleSwitcherFull from '@/components/locale-switcher-full';
 import { Link } from '@nextui-org/link';
@@ -49,6 +50,7 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
       position='sticky'
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
+      className="glass sticky top-0 z-50 border-b border-divider/50"
     >
       <NavbarContent className='basis-1/5 sm:basis-full' justify='start'>
         <NavbarBrand as='li' className='gap-3 max-w-fit'>
@@ -57,7 +59,14 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
             href='/'
             aria-label='Home'
           >
-            <Logo />
+            <div className="flex items-center gap-2 group">
+              <div className="w-8 h-8 bg-gradient-to-tr from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold shadow-lg group-hover:rotate-12 transition-transform">
+                T
+              </div>
+              <p className="font-display font-black text-2xl tracking-tighter text-foreground ml-3 group-hover:translate-x-1 transition-transform">
+                Trait Loop
+              </p>
+            </div>
           </NextLink>
         </NavbarBrand>
         <div className='hidden md:flex gap-4 justify-start ml-2'>
@@ -94,6 +103,17 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
         </NavbarItem>
         <NavbarItem>
           <LocaleSwitcherFull />
+        </NavbarItem>
+        <NavbarItem>
+          <Button
+            as={NextLink}
+            className="bg-gradient-to-r from-primary to-secondary text-white font-medium shadow-md hover:shadow-lg transition-all"
+            href="/test"
+            radius="full"
+            variant="shadow"
+          >
+            Get Started
+          </Button>
         </NavbarItem>
       </NavbarContent>
 

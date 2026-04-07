@@ -16,7 +16,7 @@ const italian = {
     title: 'Prova di personalità Big Five',
     call_to_action: 'Fai subito il test gratuito',
     no_registration: '* Nessuna registrazione richiesta',
-    tests_taken: 'Oltre <green>{n}</green> persone hanno sostenuto il test',
+    tests_taken: 'Oltre <highlight>{n}</highlight> persone hanno sostenuto il test',
     compare: {
       title: 'Confronta te stesso con gli altri',
       text1:
@@ -44,7 +44,7 @@ const italian = {
       }
     },
     description: {
-      top: 'Impara a conoscerti meglio con un test della personalità <violet>gratuito</violet> e open source.',
+      top: 'Impara a conoscerti meglio con un test della personalità <highlight>gratuito</highlight> e open source.',
       subtop: 'Il',
       subtop2:
         ' è il modello psicologico più scientificamente convalidato e affidabile per misurare la personalità.',
@@ -222,3 +222,5 @@ l'inventario proviene da <i>Johnson's (2014) IPIP NEO-PI-R di 120 elementi</i>.`
 };
 
 export default italian;
+
+

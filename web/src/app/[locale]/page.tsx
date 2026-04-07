@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@nextui-org/link';
 import { button as buttonStyles } from '@nextui-org/theme';
 import { title, subtitle } from '@/components/primitives';
@@ -28,10 +29,10 @@ interface Props {
   params: { locale: string };
 }
 
-export default function Home({ params: { locale } }: Props) {
+export default async function Home({ params: { locale } }: Props) {
   unstable_setRequestLocale(locale);
-  const t = useTranslations('frontpage');
-  const f = useTranslations('facets');
+  const t = await getTranslations({ locale, namespace: 'frontpage' });
+  const f = await getTranslations({ locale, namespace: 'facets' });
 
   const posts = allPosts
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
@@ -61,209 +62,225 @@ export default function Home({ params: { locale } }: Props) {
     }
   ];
 
-  const titleDescription = t.rich('description.top', {
-    violet: (chunks) => (
-      <span className={title({ color: 'violet' })}>{chunks}</span>
-    )
-  });
+  // Fallback to simple t() calls with HTML rendering to avoid t.rich static export issues
+  const titleDescription = t('description.top').replace('<highlight>', '<span class="text-secondary">').replace('</highlight>', '</span>');
+  const testsTakenString = t('tests_taken', { n: '4,000,000' }).replace('<highlight>', '<span class="text-primary">').replace('</highlight>', '</span>');
 
-  const testsTaken = t.rich('tests_taken', {
-    green: (chunks) => (
-      <span className={title({ color: 'green' })}>{chunks}</span>
-    ),
-    n: '4.000.000'
-  });
 
   return (
-    <section className='relative'>
+    <section className='relative overflow-hidden'>
+      {/* Background Orbs */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px] -z-10 animate-pulse" />
+      <div className="absolute bottom-[20%] right-[-10%] w-[30%] h-[30%] bg-secondary/20 rounded-full blur-[100px] -z-10 animate-pulse delay-700" />
+
       <div>
-        <section className='flex flex-col items-center justify-center gap-4 py-8 md:py-10'>
-          <div className='flex relative z-20 flex-col gap-6 w-full lg:w-1/2 xl:mt-10'>
-            <div className='text-center justify-center mt-10'>
-              <h1 className={title()}>{titleDescription}</h1>
-              <br />
-              <h2 className={subtitle({ class: 'mt-4' })}>
+        <section className='flex flex-col items-center justify-center gap-8 py-12 md:py-24 max-w-5xl mx-auto'>
+          <div className='flex relative z-20 flex-col gap-8 w-full text-center'>
+            <div className='flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000'>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black tracking-tight leading-[1.1]">
+                <span 
+                  className="text-gradient"
+                  dangerouslySetInnerHTML={{ __html: titleDescription }}
+                />
+              </h1>
+              <h2 className="text-lg md:text-2xl font-normal text-default-500 max-w-2xl mx-auto leading-relaxed">
                 {t('description.info')}
               </h2>
             </div>
 
-            <div className='flex flex-col md:flex-row items-center gap-4 justify-center'>
-              <Link
+            <div className='flex flex-col md:flex-row items-center gap-6 justify-center animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-200'>
+              <Button
+                as={Link}
                 href='/test'
-                className={clsx(
-                  buttonStyles({
-                    color: 'primary',
-                    radius: 'full',
-                    variant: 'shadow',
-                    size: 'lg',
-                    fullWidth: true
-                  }),
-                  'md:w-auto'
-                )}
+                className="h-14 px-8 text-lg bg-gradient-to-r from-primary to-secondary text-white font-bold shadow-xl hover:shadow-primary/20 hover:scale-105 transition-all"
+                radius="full"
+                endContent={<ArrowRightIcon size={20} />}
               >
-                {t('call_to_action')} <ArrowRightIcon />
-              </Link>
-              <Link
+                {t('call_to_action')}
+              </Button>
+              <Button
+                as={Link}
                 isExternal
-                className={clsx(
-                  buttonStyles({
-                    variant: 'bordered',
-                    radius: 'full',
-                    size: 'lg',
-                    fullWidth: true
-                  }),
-                  'md:w-auto'
-                )}
                 href={siteConfig.links.github}
+                className="h-14 px-8 text-lg font-bold glass hover:bg-default-100/50 transition-all"
+                radius="full"
+                variant="bordered"
+                startContent={<GithubIcon size={22} />}
               >
-                <GithubIcon size={20} />
                 GitHub
-              </Link>
+              </Button>
             </div>
           </div>
 
-          <div className='font-normal text-default-500 block max-w-full text-center underline'>
-            {t('no_registration')}
+          <div className='font-medium text-default-400 block max-w-full text-center tracking-wide uppercase text-xs sm:text-sm animate-in fade-in duration-1000 delay-500'>
+            <span className="opacity-70">{t('no_registration')}</span>
           </div>
         </section>
 
-        <div className='mt-20 mx-2'>
-          <FeaturesGrid features={features} />
-        </div>
-      </div>
-
-      <section className='border-t border-b border-divider px-8 mt-16 lg:mt-44 text-center'>
-        <div className='my-8'>
-          <h1 className={title()}>{testsTaken}</h1>
-        </div>
-      </section>
-
-      <div className='mt-20 text-center'>
-        <h1 className={title()}>{t('compare.title')}</h1>
-
-        <div className='mt-10'>
-          <div className='text-lg lg:text-xl font-normal text-default-500'>
-            {t('compare.text1')} {t('compare.text2')}
-          </div>
-        </div>
-      </div>
-
-      <div className='text-center h-64 md:h-80 mt-44 md:mt-56'>
-        <SonarPulse
-          color='#7928CA'
-          icon={
-            <Tooltip
-              showArrow
-              color='secondary'
-              content={t('call_to_action')}
-              offset={10}
-              radius='full'
-            >
-              <Button
-                isIconOnly
-                aria-label={t('call_to_action')}
-                className='z-50 w-auto h-auto bg-gradient-to-b from-[#FF1CF7] to-[#7928CA]'
-                radius='full'
-                as={Link}
-                href='/test'
-              >
-                <PlusLinearIcon
-                  className='flex items-center justify-center rounded-full text-white'
-                  size={54}
-                />
-              </Button>
-            </Tooltip>
-          }
-        >
-          <div
-            className='absolute rounded-full'
-            style={{
-              width: '130px',
-              top: 130 / 6,
-              left: -120
-            }}
-          >
-            {buildCircle([
-              {
-                name: f('openness_to_experience.title'),
-                href: '/articles/openness_to_experience'
-              },
-              {
-                name: f('conscientiousness.title'),
-                href: '/articles/conscientiousness'
-              },
-              { name: f('extraversion.title'), href: '/articles/extraversion' },
-              {
-                name: t('compare.action'),
-                href: '/compare/W3sibmFtZSI6Ik1hcnZpbiIsImlkIjoiNThhNzA2MDZhODM1YzQwMGM4YjM4ZTg0In0seyJuYW1lIjoiQXJ0aHVyIERlbnQiLCJpZCI6IjVlNTZiYTdhYjA5NjEzMDAwN2Q1ZDZkOCJ9LHsibmFtZSI6IkZvcmQgUGVyZmVjdCIsImlkIjoiNWRlYTllODhlMTA4Y2IwMDYyMTgzYWYzIn0seyJuYW1lIjoiU2xhcnRpYmFydGZhc3QiLCJpZCI6IjVlNTZiNjUwYjA5NjEzMDAwN2Q1ZDZkMCJ9XQ'
-              },
-              {
-                name: f('agreeableness.title'),
-                href: '/articles/agreeableness'
-              },
-              { name: f('neuroticism.title'), href: '/articles/neuroticism' }
-            ]).map((e, idx) => (
-              <div key={idx}>
-                <Button
-                  key={idx}
-                  name={e.name}
-                  style={e.style}
-                  className='absolute hidden md:inline-flex hover:bg-secondary'
-                  variant='bordered'
-                  as={Link}
-                  href={e.href}
-                  aria-label={e.name}
-                >
-                  {e.name}
-                </Button>
-                <Chip
-                  size='sm'
-                  color='secondary'
-                  variant='shadow'
-                  aria-label={e.name}
-                  classNames={{
-                    base: 'absolute md:hidden rounded-full left-[85px]',
-                    content: 'drop-shadow shadow-black text-white w-full w-36'
-                  }}
-                  style={e.smallStyle}
-                  as={Link}
-                  href={e.href}
-                >
-                  {e.name}
-                </Chip>
+        <div className='mt-12 mx-2 animate-in fade-in slide-in-from-bottom-16 duration-1000 delay-700'>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((feature, index) => (
+              <div key={index} className="glass-card p-8 flex flex-col gap-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold font-display">{feature.title}</h3>
+                <p className="text-default-500 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
-        </SonarPulse>
+        </div>
       </div>
 
-      <div className='text-center mx-2'>
-        <Link href='/articles' color='foreground'>
-          <h1 className={title()}>Latest posts</h1>
-        </Link>
-        <h2 className={subtitle({ class: 'mt-4' })}>
-          All the latest and greatest news and articles on #personality
+      <section className='relative mt-24 mb-12'>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5 -skew-y-3 -z-10" />
+        <div className='max-w-4xl mx-auto py-16 px-8 text-center glass rounded-3xl border-divider/40 shadow-2xl animate-in fade-in zoom-in duration-1000'>
+          <h2 
+            className="text-4xl md:text-6xl font-display font-black tracking-tighter mb-4 italic"
+            dangerouslySetInnerHTML={{ __html: testsTakenString }}
+          />
+          <p className="text-default-400 font-medium uppercase tracking-[0.2em] text-sm">
+            Profiles Generated Globally
+          </p>
+        </div>
+      </section>
+
+      <div className='mt-32 max-w-5xl mx-auto px-6 text-center'>
+        <h2 className="text-3xl md:text-5xl font-display font-black tracking-tight mb-8">
+          {t('compare.title')}
         </h2>
-        <div className='mt-10 grid gap-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]'>
+        
+        <div className='max-w-2xl mx-auto'>
+          <p className='text-lg md:text-xl font-normal text-default-500 leading-relaxed'>
+            {t('compare.text1')} {t('compare.text2')}
+          </p>
+        </div>
+
+        <div className='h-80 md:h-[450px] mt-24 flex items-center justify-center relative translate-x-[-15px]'>
+          <SonarPulse
+            color='var(--nextui-secondary)'
+            icon={
+              <Tooltip
+                showArrow
+                color='secondary'
+                content={t('call_to_action')}
+                offset={10}
+                radius='full'
+              >
+                <Button
+                  isIconOnly
+                  aria-label={t('call_to_action')}
+                  className='z-50 w-24 h-24 bg-gradient-to-br from-primary to-secondary shadow-xl hover:scale-110 transition-transform'
+                  radius='full'
+                  as={Link}
+                  href='/test'
+                >
+                  <PlusLinearIcon
+                    className='text-white drop-shadow-md'
+                    size={42}
+                  />
+                </Button>
+              </Tooltip>
+            }
+          >
+            <div
+              className='absolute rounded-full'
+              style={{
+                width: '130px',
+                top: 130 / 6,
+                left: -120
+              }}
+            >
+              {buildCircle([
+                {
+                  name: f('openness_to_experience.title'),
+                  href: '/articles/openness_to_experience'
+                },
+                {
+                  name: f('conscientiousness.title'),
+                  href: '/articles/conscientiousness'
+                },
+                { name: f('extraversion.title'), href: '/articles/extraversion' },
+                {
+                  name: t('compare.action'),
+                  href: '/compare/W3sibmFtZSI6Ik1hcnZpbiIsImlkIjoiNThhNzA2MDZhODM1YzQwMGM4YjM4ZTg0In0seyJuYW1lIjoiQXJ0aHVyIERlbnQiLCJpZCI6IjVlNTZiYTdhYjA5NjEzMDAwN2Q1ZDZkOCJ9LHsibmFtZSI6IkZvcmQgUGVyZmVjdCIsImlkIjoiNWRlYTllODhlMTA4Y2IwMDYyMTgzYWYzIn0seyJuYW1lIjoiU2xhcnRpYmFydGZhc3QiLCJpZCI6IjVlNTZiNjUwYjA5NjEzMDAwN2Q1ZDZkMCJ9XQ'
+                },
+                {
+                  name: f('agreeableness.title'),
+                  href: '/articles/agreeableness'
+                },
+                { name: f('neuroticism.title'), href: '/articles/neuroticism' }
+              ]).map((e, idx) => (
+                <div key={idx}>
+                  <Button
+                    key={idx}
+                    name={e.name}
+                    style={e.style}
+                    className='absolute hidden md:inline-flex glass border-divider/40 hover:bg-secondary/10 hover:border-secondary transition-all font-bold'
+                    variant='bordered'
+                    as={Link}
+                    href={e.href}
+                    aria-label={e.name}
+                    radius="full"
+                  >
+                    {e.name}
+                  </Button>
+                  <Chip
+                    size='sm'
+                    color='secondary'
+                    variant='shadow'
+                    aria-label={e.name}
+                    classNames={{
+                      base: 'absolute md:hidden rounded-full left-[85px]',
+                      content: 'drop-shadow shadow-black text-white w-full'
+                    }}
+                    style={e.smallStyle}
+                    as={Link}
+                    href={e.href}
+                  >
+                    {e.name}
+                  </Chip>
+                </div>
+              ))}
+            </div>
+          </SonarPulse>
+        </div>
+      </div>
+
+      <div className='mt-44 max-w-6xl mx-auto px-6'>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+          <div className="flex flex-col gap-2">
+            <Link href='/articles' color='foreground' className="hover:opacity-100 transition-opacity">
+              <h2 className="text-3xl md:text-5xl font-display font-black tracking-tight tracking-tighter">Latest articles</h2>
+            </Link>
+            <p className="text-lg text-default-500 max-w-lg">
+              Explore the science of psychology and stay updated with the latest in personality research.
+            </p>
+          </div>
+          <Button
+            as={NextLink}
+            href='/articles'
+            className="font-bold glass hover:bg-default-100/50"
+            radius="full"
+            variant="bordered"
+            endContent={<ArrowRightIcon size={16} />}
+          >
+            Explore all
+          </Button>
+        </div>
+        
+        <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
           {posts.map((post, idx) => (
-            <PostCard key={idx} {...post} />
+            <div key={idx} className="animate-in fade-in slide-in-from-bottom-8 duration-700" style={{ animationDelay: `${idx * 150}ms` }}>
+              <PostCard {...post} />
+            </div>
           ))}
         </div>
-        <div className='mt-10'>
-          <Link
-            isBlock
-            as={NextLink}
-            className='mb-8 -ml-3 text-default-500 hover:text-default-900 text-lg'
-            color='foreground'
-            href='/articles'
-            size='md'
-          >
-            Show all articles ...
-          </Link>
-        </div>
       </div>
 
-      <Translated />
+      <div className="mt-32">
+        <Translated />
+      </div>
     </section>
   );
 }

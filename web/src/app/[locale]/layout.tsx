@@ -11,7 +11,7 @@ import { basePath, getNavItems, locales, siteConfig } from '@/config/site';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import { Analytics } from '@vercel/analytics/react';
-import useTextDirection from '@/hooks/use-text-direction';
+import { isRtlLang } from 'rtl-detect';
 import Script from 'next/script';
 import CookieBanner from '@/components/cookie-consent';
 
@@ -34,13 +34,13 @@ export async function generateMetadata({
     },
     description: t('seo.description'),
     keywords: s('keywords'),
-    authors: [{ name: 'Jonas Enge', url: 'https://bigfive-test.com' }],
+    authors: [{ name: 'Trait Loop Team', url: 'https://traitloop.com' }],
     icons: {
       icon: '/favicon.ico',
       shortcut: '/favicon-16x16.png',
       apple: '/apple-touch-icon.png'
     },
-    metadataBase: new URL('https://bigfive-test.com'),
+    metadataBase: new URL('https://traitloop.com'),
     // alternates: {
     //   canonical: '/',
     //   languages: alternatesLang
@@ -87,7 +87,7 @@ export default async function RootLayout({
 }) {
   const gaId = process.env.NEXT_PUBLIC_ANALYTICS_ID || '';
   unstable_setRequestLocale(locale);
-  const direction = useTextDirection(locale);
+  const direction = isRtlLang(locale) ? 'rtl' : 'ltr';
 
   const navItems = await getNavItems({ locale, linkType: 'navItems' });
   const navMenuItems = await getNavItems({ locale, linkType: 'navMenuItems' });
@@ -117,7 +117,7 @@ export default async function RootLayout({
           </div>
         </Providers>
         <Script
-          src='https://bigfive-test.com/sw.js'
+          src='https://traitloop.com/sw.js'
           strategy='beforeInteractive'
         />
         <Analytics />

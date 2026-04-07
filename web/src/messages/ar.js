@@ -17,7 +17,7 @@ const arabic = {
     title: 'اختبار السمات الخمسة الكبرى للشخصية',
     call_to_action: 'ابدأ الاختبار الآن مجاناً',
     no_registration: '* لا يتطلب التسجيل',
-    tests_taken: 'أكثر من <green>{n}</green> أخذوا الاختبار',
+    tests_taken: 'أكثر من <highlight>{n}</highlight> أخذوا الاختبار',
     compare: {
       title: 'قارن شخصيتك بشخصية غيرك',
       text1: 'قارن شخصيتك بشخصية شريكك أو زميلك أو صديقك',
@@ -44,7 +44,7 @@ const arabic = {
       }
     },
     description: {
-      top: 'تعرّف على نفسك أكثر عن طريق هذا الاختبار <violet>المجاني</violet> ومفتوح المصدر',
+      top: 'تعرّف على نفسك أكثر عن طريق هذا الاختبار <highlight>المجاني</highlight> ومفتوح المصدر',
       subtop: 'The',
       subtop2:
         ' is the most scientifically validated and reliable psychological model to measure personality.',
@@ -219,3 +219,5 @@ inventory is from <i>Johnson's (2014) 120-item IPIP NEO-PI-R</i>.`,
 };
 
 export default arabic;
+
+

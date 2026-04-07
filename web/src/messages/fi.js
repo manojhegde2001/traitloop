@@ -17,7 +17,7 @@ const finnish = {
     title: 'Viiden suuren persoonallisuustesti',
     call_to_action: 'Ota ilmainen testi nyt',
     no_registration: '* Ei rekisteröintivaatimusta',
-    tests_taken: 'Testin on suorittanut yli <green>{n}</green> ihmistä',
+    tests_taken: 'Testin on suorittanut yli <highlight>{n}</highlight> ihmistä',
     compare: {
       title: 'Vertaa itseäsi muihin',
       text1: 'Vertaa itseäsi kumppaniin, kollegoihin, ystäviin tai perheeseen.',
@@ -44,7 +44,7 @@ const finnish = {
       }
     },
     description: {
-      top: 'Opi tuntemaan itsesi paremmin <violet>ilmaisen</violet>, avoimen lähdekoodin persoonallisuustestin avulla.',
+      top: 'Opi tuntemaan itsesi paremmin <highlight>ilmaisen</highlight>, avoimen lähdekoodin persoonallisuustestin avulla.',
       subtop: 'The',
       subtop2:
         ' on tieteellisesti validoitu ja luotettava psykologinen malli persoonallisuuden mittaamiseksi.',
@@ -216,3 +216,5 @@ const finnish = {
 };
 
 export default finnish;
+
+

@@ -17,7 +17,7 @@ const russian = {
     call_to_action: 'Примите участие сейчас',
     no_registration: '* Без регистрации',
     tests_taken:
-      'Более <green>{n}</green> человек на данный момент приняло участие',
+      'Более <highlight>{n}</highlight> человек на данный момент приняло участие',
     compare: {
       title: 'Сравните себя с другими.',
       text1:
@@ -46,7 +46,7 @@ const russian = {
       }
     },
     description: {
-      top: 'Узнайте себя лучше с помощью этого <violet>бесплатного</violet> личностного теста.',
+      top: 'Узнайте себя лучше с помощью этого <highlight>бесплатного</highlight> личностного теста.',
       subtop: 'Это',
       subtop2:
         'наиболее научно обоснованная и надежная психологическая модель для измерения личности.',
@@ -225,3 +225,5 @@ inventory is from <i>Johnson's (2014) 120-item IPIP NEO-PI-R</i>.`,
 };
 
 export default russian;
+
+

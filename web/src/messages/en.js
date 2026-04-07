@@ -16,8 +16,8 @@ const english = {
     title: 'Big Five Personality Test',
     call_to_action: 'Take the free test now',
     no_registration: '* No registration required',
-    // do not translate <green>, {n}, and </green> tags
-    tests_taken: 'Over <green>{n}</green> people have taken the test',
+    // do not translate <highlight>, {n}, and </highlight> tags
+    tests_taken: 'Over <highlight>{n}</highlight> people have taken the test',
     compare: {
       title: 'Compare yourself to others',
       text1:
@@ -45,7 +45,7 @@ const english = {
       }
     },
     description: {
-      top: 'Learn to know yourself better with a <violet>free</violet>, open-source personality test.',
+      top: 'Learn to know yourself better with a <highlight>free</highlight>, open-source personality test.',
       subtop: 'The',
       subtop2:
         ' is the most scientifically validated and reliable psychological model to measure personality.',
@@ -219,3 +219,5 @@ inventory is from <i>Johnson's (2014) 120-item IPIP NEO-PI-R</i>.`,
 };
 
 export default english;
+
+
