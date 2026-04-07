@@ -1,39 +1,28 @@
-import * as storage from './storage';
+import { MongoClient, Db } from 'mongodb';
 
-const dbName = process.env.DB_NAME || 'results';
+const uri = process.env.MONGODB_URI;
+const dbName = process.env.DB_NAME || 'traitloop';
 
-let cachedDb: any = null;
+if (!uri) {
+  throw new Error('Please add your Mongo URI to .env.local');
+}
 
-export async function connectToDatabase() {
-  if (cachedDb) return cachedDb;
+let cachedClient: MongoClient | null = null;
+let cachedDb: Db | null = null;
 
-  // Mocking the DB object structure with actual file persistence
-  const mockDb = {
-    collection: (name: string) => ({
-      findOne: async (query: any) => {
-        if (name === 'results' && query._id) {
-          return await storage.getResult(query._id);
-        }
-        return null;
-      },
-      insertOne: async (doc: any) => {
-        const id = 'mock-' + Math.random().toString(36).substr(2, 9);
-        if (name === 'results') {
-          await storage.saveResult(id, doc);
-        } else if (name === 'feedback') {
-          await storage.saveFeedback(doc);
-        }
-        return { insertedId: id };
-      },
-      find: () => ({
-        toArray: async () => {
-          const db = await storage.readDb();
-          return Object.values(db.results);
-        }
-      })
-    })
-  };
+export async function connectToDatabase(): Promise<Db> {
+  if (cachedDb) {
+    return cachedDb;
+  }
 
-  cachedDb = mockDb;
-  return mockDb;
+  const client = new MongoClient(uri!);
+
+  await client.connect();
+
+  const db = client.db(dbName);
+
+  cachedClient = client;
+  cachedDb = db;
+
+  return db;
 }

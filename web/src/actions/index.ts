@@ -1,7 +1,7 @@
 'use server';
 
 import { connectToDatabase } from '@/db';
-// import { ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import { B5Error, DbResult, Feedback } from '@/types';
 import calculateScore from '@bigfive-org/score';
 import generateResult, {
@@ -30,10 +30,9 @@ export async function getTestResult(
 ): Promise<Report | undefined> {
   'use server';
   try {
-    // const query = { _id: new ObjectId(id) };
     const db = await connectToDatabase();
     const collection = db.collection(collectionName);
-    const report = await collection.findOne({ _id: id });
+    const report = await collection.findOne({ _id: new ObjectId(id) });
 
     if (!report) {
       console.error(`The test results with id ${id} are not found!`);
@@ -70,7 +69,6 @@ export async function saveTest(testResult: DbResult) {
     const result = await collection.insertOne(testResult);
 
     const id = result.insertedId.toString();
-    // mockStorage[id] = testResult; // Stores via connectToDatabase -> storage.ts
 
     return { id: id };
   } catch (error) {
